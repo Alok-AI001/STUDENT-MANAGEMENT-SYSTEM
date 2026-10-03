@@ -3,7 +3,7 @@
 A simple **Student Management System** built using Python and Object-Oriented Programming (OOP).
 This project allows users to add, view, search, update, and delete student records through a menu-driven console application.
 
-## Features
+## Features()
 
 * Add a new student
 * View all student records
