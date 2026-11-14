@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section class="hero">
+  <div><p class="eyebrow">STUDENT ADMINISTRATION</p><h1>Manage your students<span class="accent-dot">.</span></h1><p class="subheading">Keep every student record organized in one place.</p></div>
+  <a class="button primary" href="{{ url_for('add_student') }}">＋ Add new student</a>
+</section>
+<section class="stats">
+  <article class="stat-card"><span class="stat-label">TOTAL STUDENTS</span><strong>{{ total_students }}</strong><span class="stat-note">Records in your database</span></article>
+  <article class="stat-card"><span class="stat-label">AVERAGE MARKS</span><strong>{{ average_marks }}<small>/ 100</small></strong><span class="stat-note">Across all students</span></article>
+  <article class="stat-card"><span class="stat-label">QUICK ACTION</span><strong class="stat-action">＋</strong><a class="stat-link" href="{{ url_for('add_student') }}">Create a student record →</a></article>
+</section>
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">YOUR DATABASE</p><h2>Student directory</h2></div><form class="search-form" method="get" action="{{ url_for('index') }}"><input name="q" value="{{ search }}" placeholder="Search name, ID, course..." aria-label="Search students"><button class="button secondary" type="submit">Search</button>{% if search %}<a class="clear-link" href="{{ url_for('index') }}">Clear</a>{% endif %}</form></div>
+  {% if students %}
+  <div class="table-wrap"><table><thead><tr><th>STUDENT</th><th>STUDENT ID</th><th>COURSE / BRANCH</th><th>AGE</th><th>MARKS</th><th></th></tr></thead><tbody>
+  {% for student in students %}<tr><td><a class="student-name" href="{{ url_for('view_student', student_pk=student.id) }}"><span class="avatar">{{ student.name[:1]|upper }}</span><span>{{ student.name }}</span></a></td><td><span class="id-chip">{{ student.student_id }}</span></td><td><strong class="cell-main">{{ student.course }}</strong><span class="cell-sub">{{ student.branch }}</span></td><td>{{ student.age }}</td><td><span class="marks">{{ student.marks|round(1) }}%</span></td><td><a class="row-action" href="{{ url_for('edit_student', student_pk=student.id) }}">Edit ↗</a></td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<div class="empty-state"><div class="empty-icon">⌕</div><h3>{% if search %}No matching students{% else %}No students added yet{% endif %}</h3><p>{% if search %}Try another name, ID, course or branch.{% else %}Add your first student to get started.{% endif %}</p>{% if not search %}<a class="button primary" href="{{ url_for('add_student') }}">Add first student</a>{% endif %}</div>{% endif %}
+</section>
+{% endblock %}
