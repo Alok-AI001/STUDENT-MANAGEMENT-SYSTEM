@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}{{ student.name }}{% endblock %}
+{% block content %}
+<div class="page-heading"><a class="back-link" href="{{ url_for('index') }}">← Back to dashboard</a><p class="eyebrow">STUDENT PROFILE</p><h1>{{ student.name }}<span class="accent-dot">.</span></h1><p class="subheading">Student ID: {{ student.student_id }}</p></div>
+<section class="detail-panel"><div class="detail-avatar">{{ student.name[:1]|upper }}</div><div class="detail-grid"><div><span>AGE</span><strong>{{ student.age }}</strong></div><div><span>COURSE</span><strong>{{ student.course }}</strong></div><div><span>BRANCH</span><strong>{{ student.branch }}</strong></div><div><span>MARKS</span><strong>{{ student.marks|round(1) }}%</strong></div></div><div class="form-actions"><a class="button secondary" href="{{ url_for('edit_student', student_pk=student.id) }}">Edit details</a><form method="post" action="{{ url_for('delete_student', student_pk=student.id) }}" onsubmit="return confirm('Delete this student record? This cannot be undone.');"><button class="button danger" type="submit">Delete student</button></form></div></section>
+{% endblock %}
