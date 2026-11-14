@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Edit student' if student else 'Add student' }}{% endblock %}
+{% block content %}
+<div class="page-heading"><a class="back-link" href="{{ url_for('index') }}">← Back to dashboard</a><p class="eyebrow">STUDENT RECORD</p><h1>{{ 'Update student' if student else 'Add a student' }}<span class="accent-dot">.</span></h1><p class="subheading">Enter the details below. All fields are required.</p></div>
+<section class="form-panel"><form method="post">
+  <div class="form-grid">
+    <label>Student ID<input name="student_id" required maxlength="30" value="{{ student.student_id if student else '' }}" placeholder="e.g. STU001"></label>
+    <label>Full name<input name="name" required maxlength="100" value="{{ student.name if student else '' }}" placeholder="Enter full name"></label>
+    <label>Age<input type="number" name="age" required min="1" max="120" value="{{ student.age if student else '' }}" placeholder="e.g. 21"></label>
+    <label>Course<input name="course" required maxlength="100" value="{{ student.course if student else '' }}" placeholder="e.g. BE"></label>
+    <label>Branch<input name="branch" required maxlength="100" value="{{ student.branch if student else '' }}" placeholder="e.g. Artificial Intelligence"></label>
+    <label>Marks (%)<input type="number" name="marks" required min="0" max="100" step="0.01" value="{{ student.marks if student else '' }}" placeholder="0 - 100"></label>
+  </div>
+  <div class="form-actions"><a class="button secondary" href="{{ url_for('index') }}">Cancel</a><button class="button primary" type="submit">{{ 'Save changes' if student else 'Add student' }}</button></div>
+</form></section>
+{% endblock %}
